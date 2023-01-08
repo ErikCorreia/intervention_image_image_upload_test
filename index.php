@@ -75,10 +75,26 @@ class ImageManager
     }
     public function destroy()
     {
-        die('5dawsd');
-        // destroy resource
-        $this->image->destroy();
+        $this->image->destroy();        
     }
+}
+
+class Canvas
+{
+    static function create()
+    {
+        Image::configure(['driver' => 'imagick']);
+
+        $img = Image::canvas(150, 150, '#fff');
+        
+        $img->ellipse(100, 100, 75, 75, function($draw){
+            $draw->background('rgba(0,0,0,.5)');
+        });
+        
+        $img->save('src/bar.png');
+        $img->destroy();
+    }
+
 }
 
 $img = new ImageManager();
@@ -87,3 +103,5 @@ $img->saveImage('large');
 $img->saveImage('thumb');
 $img->saveImage('medium');
 $img->destroy();
+
+// $canva = Canvas::create();
