@@ -108,17 +108,15 @@ $app->get('/canva', function($request, $response, $args) {
   // <canvas class="canvasjs-chart-canvas" width="1904" height="370" style="position: absolute; user-select: none;"></canvas>
 
   $points = [
-
-                        /* Espaço entre as colunas | altura da coluna */ 
-/*ponto A eixos x e y*/            10,                       200,        
-/*ponto B eixos x e y*/            50,                       200,
-/*ponto C eixos x e y*/            50,                       370,
-/*ponto D eixos x e y*/            10,                       370   
+     10, 200,  /*ponto A eixos x e y*/        
+     50, 200,  /*ponto B eixos x e y*/
+     50, 370,  /*ponto C eixos x e y*/
+     10, 370   /*ponto D eixos x e y*/  
      
   ];
 
 $points2 = [
-  140,  80,  // Point 1 (x, y)
+  140,  80,
   100,  80,
   100,  370,
   140,  370   

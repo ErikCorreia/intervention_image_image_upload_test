@@ -1,18 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="" method="POST" enctype="multipart/form-data">
-        <div class="">
-            <input type="file" name="image" id="image" required>
+<?php 
+    use Intervention\Image\ImageManagerStatic as Image; 
+?>
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #1a1a1a;
+    }
+    #right_panel {
+    position: absolute;
+    /* width: 96px; */
+    padding-left: 4px;
+    /* height: 100%; */
+    /* right: 0; */
+    background-color: #000;
+}
+
+#right_panel::after {
+    content: '';
+    background-color: #ccc;
+    position: absolute;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    cursor: ew-resize;
+}
+</style>
+<main id="page">
+    <section class="container my-5">
+        <h1><?= $title ?></h1>
+        
+        <div id="right_panel">
+            <?php $image = Image::canvas(100, 100, "#000")->encode('data-url'); ?>
+	        <img src="<?php echo $image->encoded?>" width="100%"/>
         </div>
-        <button type="submit">Submit</button>
-    </form>
-    
-</body>
-</html>
+
+    </section>
+</main>
+
+<script>
+
+    const BORDER_SIZE = 4;
+    const panel = document.getElementById("right_panel");
+
+    let m_pos;
+    function resize(e){
+    const dx = m_pos - e.x;
+    m_pos = e.x;
+    panel.style.width = (parseInt(getComputedStyle(panel, '').width) + dx) + "px";
+    }
+
+    panel.addEventListener("mousedown", function(e){
+    if (e.offsetX < BORDER_SIZE) {
+        m_pos = e.x;
+        document.addEventListener("mousemove", resize, false);
+    }
+    }, false);
+
+    document.addEventListener("mouseup", function(){
+        document.removeEventListener("mousemove", resize, false);
+
+        let image_container = document.getElementById('right_panel');
+
+        console.log(
+            { container_size: {
+                width:  image_container.clientWidth, 
+                height: image_container.clientHeight,
+            }
+            }
+        )
+
+    }, false);
+
+</script>
