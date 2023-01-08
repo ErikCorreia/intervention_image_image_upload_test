@@ -1,6 +1,8 @@
  $ composer require intervention/image
  
- $ php index.php
+ gerar imagens large, medium, thumb
+
+ Test: $ php -S localhost:3000
  
 Pagina da biblioneca
 https://image.intervention.io/v2
