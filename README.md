@@ -1,6 +1,6 @@
  $ composer require intervention/image
  
- gerar imagens large, medium, thumb
+ gerar imagens large, medium, thumb: $ php image.php
 
  Test: $ php -S localhost:3000
  
