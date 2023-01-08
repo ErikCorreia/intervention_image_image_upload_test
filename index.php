@@ -1,4 +1,6 @@
 <?php
+
+use GuzzleHttp\Psr7\UploadedFile;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
@@ -15,8 +17,42 @@ $app->addRoutingMiddleware();
 
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
-// Define app routes
-$app->get('/', function (Request $request, Response $response, $args) {
+$app->get('/', function($request, $response, $args){
+
+  $tpl = require 'home.phtml';
+
+  $oldResponse = $response;
+
+  $newStream = new \GuzzleHttp\Psr7\LazyOpenStream($tpl, 'r');
+  $newResponse = $oldResponse->withBody($newStream);
+
+  return $newResponse;
+
+});
+
+$app->post('/', function($request, $response, $args){
+
+  $directory = __DIR__;
+  $params = $request->getParsedBody();
+  $uploadedFiles = $request->getUploadedFiles();
+
+  $uploadedFile = $uploadedFiles['image'];
+  // $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+
+  if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+    $image = Image::make($uploadedFile->getStream()->getMetadata('uri'))
+    ->resize(500, 300)
+    // ->save($directory.'/resized-image.png')
+    ->response();
+  }
+
+  $response->getBody()->write($image);
+
+  return $response;
+
+});
+
+$app->get('/image', function (Request $request, Response $response, $args) {
 
   Image::configure(['driver' => 'imagick']);
 
