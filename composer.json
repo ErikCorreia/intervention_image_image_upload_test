@@ -1,0 +1,17 @@
+{
+    "name": "erik/image_upload_helper",
+    "autoload": {
+        "psr-4": {
+            "Erik\\ImageUploadHelper\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Erik Correia",
+            "email": "erickcorreia727@gmail.com"
+        }
+    ],
+    "require": {
+        "intervention/image": "^2.7"
+    }
+}
