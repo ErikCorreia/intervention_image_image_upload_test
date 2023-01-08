@@ -1,4 +1,25 @@
 <?php
+//||===========================================================||
+//|| Pagina da biblioneca | https://image.intervention.io/v2   ||
+//||===========================================================||
+//|| Verção minima do php | PHP >= 5.4 Fileinfo Extension      ||
+//|| PHH Extensão         | GD Library (>=2.0)                 ||
+//||                      | or Imagick PHP extension (>=6.5.7) ||
+//||===========================================================||
+//||             composer require intervention/image           ||
+//||===========================================================||
+//||                (Teste terminal php index.php)             ||
+//||===========================================================||
+
+
+//||=====================================================||
+//||    php extension dependence     |      imagick      ||
+//||=====================================================||
+//||  class |      ImageManager      |       Canvas      ||
+//||=====================================================||
+//|| detail |     gera a imagem      |   cria uma imagem || 
+//||        | (thumb, medium, large) |                   ||
+//||=====================================================||
 
 // include composer autoload
 require 'vendor/autoload.php';
