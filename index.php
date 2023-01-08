@@ -103,5 +103,45 @@ $app->get('/cached-image', function($require, $response, $args){
   return $response; 
 
 });
+
+$app->get('/canva', function($request, $response, $args) {
+  // <canvas class="canvasjs-chart-canvas" width="1904" height="370" style="position: absolute; user-select: none;"></canvas>
+
+  $points = [
+
+                        /* Espaço entre as colunas | altura da coluna */ 
+/*ponto A eixos x e y*/            10,                       200,        
+/*ponto B eixos x e y*/            50,                       200,
+/*ponto C eixos x e y*/            50,                       370,
+/*ponto D eixos x e y*/            10,                       370   
+     
+  ];
+
+$points2 = [
+  140,  80,  // Point 1 (x, y)
+  100,  80,
+  100,  370,
+  140,  370   
+];
+
+  $image = Image::canvas(1904, 370, )
+  ->polygon($points, function($draw){
+    $draw->background('#000');
+  })
+  ->polygon($points2, function($draw){
+    $draw->background('#ff000');
+  })
+  ->encode('data-url');
+
+  $response->getBody()->write(json_encode([
+    'data' => $image
+  ]));
+
+  return $response->withHeader('Content-type', 'application/json')
+                  ->withHeader('Access-Control-Allow-Origin', '*')
+                  ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+                  ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+
+});
 // Run app
 $app->run();
