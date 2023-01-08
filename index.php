@@ -41,5 +41,31 @@ $app->get('/', function (Request $request, Response $response, $args) {
 
 });
 
+// cache image => eretorna a resposta e cria um cache de 10 segundos
+$app->get('/cached-image', function($require, $response, $args){
+
+  Image::configure(['drive' => 'imagick']);
+
+  
+  $image = Image::cache(function($img){
+ 
+    $wathermark = Image::canvas(300, 50, 'rgba(255,255,255,.1)');
+    $wathermark->text('My Wathermark', 150, 10, function($font) {
+      $font->file('RubikBubbles-Regular.ttf');
+      $font->size(24);
+      $font->color('rgba(255,255,255, .3)');
+      $font->align('center');
+      $font->valign('top');
+      $font->angle(0);
+    });
+
+    $img->make('src/foo.jpg')->insert($wathermark, 'bottom-right', 50, 50)->save('bar.png');
+    
+  }, 20, true)->response('png');
+
+  $response->getBody()->write($image);
+  return $response; 
+
+});
 // Run app
 $app->run();

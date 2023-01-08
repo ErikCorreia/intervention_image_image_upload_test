@@ -13,6 +13,7 @@
     ],
     "require": {
         "intervention/image": "^2.7",
-        "slim/slim": "^4.11"
+        "slim/slim": "^4.11",
+        "intervention/imagecache": "^2.5"
     }
 }
